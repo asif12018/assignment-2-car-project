@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { TCar, TOder } from './car.interface';
+import { TCar } from './car.interface';
 
 //car schema
 const carSchema = new Schema<TCar>({
@@ -13,14 +13,4 @@ const carSchema = new Schema<TCar>({
   inStock: Boolean,
 });
 
-//order schema
-const orderSchema = new Schema<TOder>({
-  email: String,
-  car: String,
-  quantity: Number,
-  totalPrice: Number,
-});
-
 export const CarModel = model<TCar>('Car', carSchema);
-
-export const OderModel = model<TOder>('Order', orderSchema);

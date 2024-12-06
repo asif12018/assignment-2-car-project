@@ -9,11 +9,3 @@ export type TCar = {
   quantity: number;
   inStock: boolean;
 };
-
-//order type
-export type TOder = {
-  email: string;
-  car: string;
-  quantity: number;
-  totalPrice: number;
-};
