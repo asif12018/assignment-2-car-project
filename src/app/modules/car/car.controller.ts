@@ -60,8 +60,29 @@ const getSpecificCar = async (req: Request, res: Response) => {
   }
 };
 
+//get update a specific car from db controller
+const updateCar = async (req: Request, res: Response) => {
+  try {
+    const carId = req.params.carId;
+    const carData = req.body.cars;
+    const result = await CarServices.UpdateCarFromDB(carId, carData);
+    res.status(200).json({
+      success: true,
+      message: 'update successful',
+      result: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: 'something went wrong in updatecar controller',
+      error: err,
+    });
+  }
+};
+
 export const CarControllers = {
   createCar,
   getAllCar,
   getSpecificCar,
+  updateCar,
 };
