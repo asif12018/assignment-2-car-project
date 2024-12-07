@@ -41,7 +41,27 @@ const getAllCar = async (req: Request, res: Response) => {
   }
 };
 
+//get a specific car from db controller
+const getSpecificCar = async (req: Request, res: Response) => {
+  try {
+    const carId = req.params.carId;
+    const result = await CarServices.getSpecificCarFromDB(carId);
+    res.status(200).json({
+      success: true,
+      message: 'Specific car found',
+      data: result,
+    });
+  } catch (err) {
+    res.json({
+      success: false,
+      message: 'somethings went wrong in getSpecific car controller',
+      error: err,
+    });
+  }
+};
+
 export const CarControllers = {
   createCar,
   getAllCar,
+  getSpecificCar,
 };
