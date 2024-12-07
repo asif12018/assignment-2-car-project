@@ -18,4 +18,10 @@ const carSchema = new Schema<TCar>(
   },
 );
 
+//middle ware
+carSchema.pre('find', function (next) {
+  this.find({ inStock: { $ne: false } });
+  next();
+});
+
 export const CarModel = model<TCar>('Car', carSchema);

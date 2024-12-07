@@ -8,6 +8,13 @@ const createCarIntoDB = async (carData: TCar) => {
   return result;
 };
 
+//get all car
+const getAllCarFromDB = async () => {
+  const result = await CarModel.find();
+  return result;
+};
+
 export const CarServices = {
   createCarIntoDB,
+  getAllCarFromDB,
 };
