@@ -14,11 +14,12 @@ const createOrder = async (req: Request, res: Response) => {
       message: 'Order placed successfully',
       data: result,
     });
-  } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any | unknown) {
     res.status(500).json({
       success: false,
       message: 'Somethings went wrong in the order create controller',
-      error: err,
+      error: err.message,
     });
   }
 };
