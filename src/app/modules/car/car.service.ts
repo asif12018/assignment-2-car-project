@@ -12,7 +12,7 @@ const createCarIntoDB = async (carData: TCar) => {
 
 //get all car
 const getAllCarFromDB = async () => {
-  const result = await CarModel.find();
+  const result = await CarModel.find().select('-isDeleted');
   return result;
 };
 //get a specific car

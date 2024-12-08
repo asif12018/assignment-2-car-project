@@ -12,6 +12,7 @@ const carSchema = new Schema<TCar>(
     description: { type: String, required: true, trim: true },
     quantity: { type: Number, required: true, min: 0 },
     inStock: { type: Boolean, required: true },
+    isDeleted: { type: Boolean, default: false },
   },
   {
     timestamps: true,
@@ -19,9 +20,9 @@ const carSchema = new Schema<TCar>(
 );
 
 //middle ware
-// carSchema.pre('find', function (next) {
-//   this.find({ inStock: { $ne: false }, quantity: { $gt: 0 } });
-//   next();
-// });
+carSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
 
 export const CarModel = model<TCar>('Car', carSchema);
