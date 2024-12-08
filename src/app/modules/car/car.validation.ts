@@ -11,6 +11,7 @@ const carZodSchema = z.object({
   description: z.string().trim().min(1, 'Description is required'),
   quantity: z.number().min(1, 'car quantity is required'),
   inStock: z.boolean(),
+  isDeleted: z.boolean(),
 });
 
 export default carZodSchema;

@@ -1,12 +1,11 @@
 import { z } from 'zod';
 
-//creating schema for order validation
-
-const orderZodSchema = {
-  email: z.string().min(1, 'email is required'),
-  car: z.string().min(1, 'car id is required'),
-  quantity: z.string().min(1, 'order quantity is required'),
-  totalPrice: z.number().min(1, 'total Prive is required'),
-};
+// Creating schema for order validation
+const orderZodSchema = z.object({
+  email: z.string().email('Invalid email format').min(1, 'Email is required'),
+  car: z.string().min(1, 'Car ID is required'),
+  quantity: z.number().min(1, 'Order quantity is required'),
+  totalPrice: z.number().min(1, 'Total price is required'),
+});
 
 export default orderZodSchema;

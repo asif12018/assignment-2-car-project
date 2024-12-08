@@ -1,26 +1,28 @@
 import { Request, Response } from 'express';
-import { OrderService } from './order.service';
+import { OrderServices } from './order.service';
+import orderZodSchema from './order.validation';
 
-//order data creation controller function
+//create order controller
 
 const createOrder = async (req: Request, res: Response) => {
   try {
     const { order: orderData } = req.body;
-    const result = await OrderService.createOrderIntoDB(orderData);
+    const OrderParseData = orderZodSchema.parse(orderData);
+    const result = await OrderServices.createOrderIntoDB(OrderParseData);
     res.status(200).json({
       success: true,
-      message: 'order has successfully placed',
+      message: 'Order placed successfully',
       data: result,
     });
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: 'somethings went wrong in the order controller',
+      message: 'Somethings went wrong in the order create controller',
       error: err,
     });
   }
 };
 
-export const OrderController = {
+export const OrderControllers = {
   createOrder,
 };
