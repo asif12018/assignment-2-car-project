@@ -37,6 +37,20 @@ const createOrderIntoDB = async (orderData: TOder) => {
   }
 };
 
+//get all the revenue from the order
+const getRevenueFromDB = async () => {
+  const result = await OderModel.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalSum: { $sum: '$totalPrice' },
+      },
+    },
+  ]);
+  return result;
+};
+
 export const OrderServices = {
   createOrderIntoDB,
+  getRevenueFromDB,
 };

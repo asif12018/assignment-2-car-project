@@ -24,6 +24,26 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
+//get all the revenue from db
+const getRevenue = async (req: Request, res: Response) => {
+  try {
+    const result = await OrderServices.getRevenueFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'Revenue data provided',
+      data: result,
+    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: 'something went wrong in the revenue controller',
+      error: err.message,
+    });
+  }
+};
+
 export const OrderControllers = {
   createOrder,
+  getRevenue,
 };
