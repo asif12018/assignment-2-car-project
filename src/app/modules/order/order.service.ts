@@ -47,7 +47,11 @@ const getRevenueFromDB = async () => {
       },
     },
   ]);
-  return result;
+  const revenue = {
+    totalRevenue: result[0].totalSum,
+  };
+  // console.log('total revenue is', revenue);
+  return revenue;
 };
 
 export const OrderServices = {

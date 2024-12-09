@@ -30,7 +30,7 @@ const getRevenue = async (req: Request, res: Response) => {
     const result = await OrderServices.getRevenueFromDB();
     res.status(200).json({
       success: true,
-      message: 'Revenue data provided',
+      message: 'Revenue calculated successfully',
       data: result,
     });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
