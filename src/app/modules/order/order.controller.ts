@@ -11,7 +11,7 @@ const createOrder = async (req: Request, res: Response) => {
     const result = await OrderServices.createOrderIntoDB(OrderParseData);
     res.status(200).json({
       success: true,
-      message: 'Order placed successfully',
+      message: 'Order created successfully',
       data: result,
     });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,6 +39,7 @@ const getRevenue = async (req: Request, res: Response) => {
       success: false,
       message: 'something went wrong in the revenue controller',
       error: err.message,
+      stack: err.stack,
     });
   }
 };
