@@ -18,13 +18,24 @@ const getAllCarFromDB = async () => {
 //get a specific car
 const getSpecificCarFromDB = async (id: string) => {
   const result = await CarModel.findOne({ _id: new ObjectId(`${id}`) });
+  if (!result) {
+    throw new Error('Car not found');
+  }
+
   return result;
 };
 
 //update a specific car
 const UpdateCarFromDB = async (id: string, carData: object) => {
   const filter = { _id: new ObjectId(`${id}`) };
-  const result = CarModel.findOneAndUpdate(filter, carData);
+  const result = await CarModel.findOneAndUpdate(filter, carData);
+  return result;
+};
+
+//delete a car
+const DeleteCarFromDB = async (id: string) => {
+  const filter = { _id: new ObjectId(`${id}`) };
+  const result = await CarModel.findOneAndUpdate(filter, { isDeleted: true });
   return result;
 };
 
@@ -33,4 +44,5 @@ export const CarServices = {
   getAllCarFromDB,
   getSpecificCarFromDB,
   UpdateCarFromDB,
+  DeleteCarFromDB,
 };

@@ -14,16 +14,16 @@ const createCar = async (req: Request, res: Response) => {
       message: 'Car data is created on database',
       data: result,
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: 'Something went wrong in car creating controller',
+      message: 'Something went wrong in getSpecificCar controller',
       error: err,
     });
   }
 };
 
-//get all car from db controller
 const getAllCar = async (req: Request, res: Response) => {
   try {
     const result = await CarServices.getAllCarFromDB();
@@ -51,11 +51,12 @@ const getSpecificCar = async (req: Request, res: Response) => {
       message: 'Specific car found',
       data: result,
     });
-  } catch (err) {
-    res.json({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any | unknown) {
+    res.status(500).json({
       success: false,
       message: 'somethings went wrong in getSpecific car controller',
-      error: err,
+      error: err.message,
     });
   }
 };
@@ -69,7 +70,7 @@ const updateCar = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'update successful',
-      result: result,
+      data: result,
     });
   } catch (err) {
     res.status(500).json({
@@ -80,9 +81,29 @@ const updateCar = async (req: Request, res: Response) => {
   }
 };
 
+//delete a specific car from database
+const deleteCar = async (req: Request, res: Response) => {
+  try {
+    const carId = req.params.carId;
+    const result = await CarServices.DeleteCarFromDB(carId);
+    res.status(200).json({
+      success: true,
+      message: 'car deleted successfully',
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong in the delete car controller',
+      error: err,
+    });
+  }
+};
+
 export const CarControllers = {
   createCar,
   getAllCar,
   getSpecificCar,
   updateCar,
+  deleteCar,
 };
