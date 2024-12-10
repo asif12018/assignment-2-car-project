@@ -8,7 +8,13 @@ const createOrderIntoDB = async (orderData: TOder) => {
   if (!carData) {
     throw new Error('Car not found');
   }
-  if (carData?.quantity > 0) {
+  if (carData.quantity === 0) {
+    throw new Error('car is out of stock');
+  }
+  if (carData.quantity < orderData.quantity) {
+    throw new Error('order amount is higher then stock');
+  }
+  if (carData?.quantity > 0 && carData.quantity >= orderData.quantity) {
     const result = await OderModel.create(orderData);
     //decreasing quantity from car database
     const newQuantity = carData.quantity - orderData.quantity;
@@ -32,8 +38,6 @@ const createOrderIntoDB = async (orderData: TOder) => {
       );
     }
     return result;
-  } else {
-    throw new Error('car is out of stock');
   }
 };
 

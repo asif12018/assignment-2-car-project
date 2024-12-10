@@ -25,4 +25,9 @@ carSchema.pre('find', function (next) {
   next();
 });
 
+carSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
 export const CarModel = model<TCar>('Car', carSchema);

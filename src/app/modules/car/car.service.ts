@@ -28,7 +28,11 @@ const getSpecificCarFromDB = async (id: string) => {
 //update a specific car
 const UpdateCarFromDB = async (id: string, carData: object) => {
   const filter = { _id: new ObjectId(`${id}`) };
-  const result = await CarModel.findOneAndUpdate(filter, carData);
+  const options = { new: true };
+  const result = await CarModel.findOneAndUpdate(filter, carData, options);
+  if (!result) {
+    throw new Error('Invalid id or car not found');
+  }
   return result;
 };
 
@@ -36,7 +40,10 @@ const UpdateCarFromDB = async (id: string, carData: object) => {
 const DeleteCarFromDB = async (id: string) => {
   const filter = { _id: new ObjectId(`${id}`) };
   const result = await CarModel.findOneAndUpdate(filter, { isDeleted: true });
-  return result;
+  if (!result) {
+    throw new Error('Invalid id or car not found');
+  }
+  return {};
 };
 
 export const CarServices = {

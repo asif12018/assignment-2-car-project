@@ -5,7 +5,7 @@ import { CarServices } from './car.service';
 //car data creation controller funciton
 const createCar = async (req: Request, res: Response) => {
   try {
-    const { cars: carData } = req.body;
+    const carData = req.body;
     const zodparsedData = carZodSchema.parse(carData);
     const result = await CarServices.createCarIntoDB(zodparsedData);
     //sent response
@@ -69,7 +69,7 @@ const getSpecificCar = async (req: Request, res: Response) => {
 const updateCar = async (req: Request, res: Response) => {
   try {
     const carId = req.params.carId;
-    const carData = req.body.cars;
+    const carData = req.body;
     const result = await CarServices.UpdateCarFromDB(carId, carData);
     res.status(200).json({
       success: true,
@@ -81,7 +81,7 @@ const updateCar = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'something went wrong in updatecar controller',
-      error: err,
+      error: err.message,
       stack: err.stack,
     });
   }
@@ -102,7 +102,7 @@ const deleteCar = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Something went wrong in the delete car controller',
-      error: err,
+      error: err.message,
       stack: err.stack,
     });
   }

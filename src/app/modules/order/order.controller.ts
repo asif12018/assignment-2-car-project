@@ -6,7 +6,7 @@ import orderZodSchema from './order.validation';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
-    const { order: orderData } = req.body;
+    const orderData = req.body;
     const OrderParseData = orderZodSchema.parse(orderData);
     const result = await OrderServices.createOrderIntoDB(OrderParseData);
     res.status(200).json({
